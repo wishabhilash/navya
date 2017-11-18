@@ -40,6 +40,34 @@ class TestRole(unittest.TestCase):
 		rhs = '''{"id": "role1", "permissions": ["perm7"]}'''
 		self.assertEqual(lhs, rhs)
 
+	def test_set_role_perm_to_none_for_role1(self):
+		role = Role()
+		with self.assertRaises(TypeError):
+			role.update('role1', None)
+
+
+class TestPerm(unittest.TestCase):
+	
+	def test_get_perm_if_id_is_perm1(self):
+		perm = Perm()
+		lhs = json.dumps(perm.get('perm1'))
+		rhs = '''null'''
+		self.assertEqual(lhs, rhs)
+
+	def test_delete_perm1(self):
+		perm = Perm()
+		self.assertEqual(perm.delete('perm1'), True)
+
+	def test_delete_perm34(self):
+		perm = Perm()
+		with self.assertRaises(KeyError):
+			perm.delete('perm34')
+
+	def test_delete_none(self):
+		perm = Perm()
+		with self.assertRaises(TypeError):
+			perm.delete(None)
+
 if __name__ == '__main__':
 	unittest.main()
 		
